@@ -26,6 +26,8 @@ class NodeRtmpServer {
   run() {
     this.tcpServer.listen(this.config.rtmp.port, () => {
       this.config.rtmp.port = this.tcpServer.address().port;
+      if (typeof(this.config.rtmp.onListen) === 'function')
+        this.config.rtmp.onListen()
       Logger.log(`Node Media Rtmp Server started on port: ${this.config.rtmp.port}`);
     });
 
