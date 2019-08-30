@@ -189,8 +189,14 @@ class NodeRelayServer {
 
   stop() {
     clearInterval(this.staticCycle);
-    this.dynamicSessions.forEach((value, key, map) => { value.end() })
-    this.staticSessions.forEach((value, key, map) => { value.end() })
+    this.dynamicSessions.forEach((value, key, map) => {
+      value.end()
+      this.dynamicSessions.delete(key)
+    })
+    this.staticSessions.forEach((value, key, map) => {
+      value.end()
+      this.staticSessions.delete(key)
+    })
   }
 }
 
